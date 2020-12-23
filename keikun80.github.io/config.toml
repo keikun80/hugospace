@@ -1,9 +1,8 @@
-baseURL = "https://example.com/"
-title = "Binario"
+baseURL = "/"
+title = "Developer in the ROOT"
 languageCode = "en-us"
 paginate = 10
 theme = "binario"
-
 [Params]
   description = "Responsive card-based & code-light Hugo theme"
   columns = 2
