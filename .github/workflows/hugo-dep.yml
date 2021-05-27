@@ -27,7 +27,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with: 
-   	  deploy_key: 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
+   	      deploy_key: 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
           external_repository: keikun80/keikun80.github.io
           publish_branch: master  # default: gh-pages
           publish_dir: ./public
