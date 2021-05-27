@@ -1,3 +1,34 @@
+---
+# Common-Defined params
+title: "생계형 개발자 과정"
+date: "2021-05-21"
+lastmod: "2021-05-21"
+description: "생계형 개발자는 배워야 할게 많다. 하지만 다 배우지 않아도 된다."
+categories:
+  - "study"
+  - "life"
+tags:
+  - "생계령"
+  - "개발자"
+menu: main # Add page to a menu. Options: main, footer
+
+# Theme-Defined params
+comments: true # Enable/disable Disqus comments for specific page
+authorbox: true # Enable/disable Authorbox for specific page
+toc: true # Enable/disable Table of Contents for specific page
+tocOpen: true # Open Table of Contents block for specific page
+mathjax: true # Enable/disable MathJax for specific page
+related: true # Enable/disable Related content for specific page
+meta:
+  - date
+  - categories
+featured:
+  #url: image.jpg # relative path of the image
+  #alt: A scale model of the Eiffel tower # alternate text for the image
+  #caption: Eiffel tower model # image caption
+  #credit: Unknown author # image credit
+  #previewOnly: false # show only preview image (true/false)
+---
 # 생계형 개발자 커리큘럼
 
 생계형 개발자를 하기로 했다면 
@@ -90,7 +121,7 @@
 
 # **자료구조**
 
-### 기초
+### 자료구조 기초
 
 - [Array1](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDN86AAXw5UW6&subjectId=AV183wv6I7QCFAZN)
 - [Array2](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDN86AAXw5UW6&subjectId=AV1835EaI7YCFAZN)
@@ -98,25 +129,25 @@
 
 # 백엔드
 
-### 기초
+### 자바 개발 기초
 
 - [JAVA Programming 초급(1)](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDAe6AATw5UW6&subjectId=AV18Zw6qIxwCFAZN)
 - [JAVA Programming 초급(2)](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDAe6AATw5UW6&subjectId=AV18Z806Ix8CFAZN)
 - [JAVA Programming 초급(3)](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDAe6AATw5UW6&subjectId=AV18aJ56IyECFAZN)
 
-### 입문
+### 자바 개발 입문
 
 - [MaranDB 강좌](https://www.inflearn.com/course/mysql-%EA%B0%95%EC%A2%8C#)
 - [스프링입문](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%9E%85%EB%AC%B8-%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8#curriculum)
 
-중급
+### 자바 개발 중급
 
 - [JPA 강좌](https://www.youtube.com/playlist?list=PLxU-iZCqT52AlV-Y7UlwSQp8N6pMjijFX)
 - [Thymeleaf / JPA 강좌](https://www.youtube.com/watch?v=FYkn9KOfkx0&list=PLPtc9qD1979DG675XufGs0-gBeb2mrona&ab_channel=%EC%BD%94%EB%94%A9%EC%9D%98%EC%8B%A0%EC%BD%94%EB%94%A9%EC%9D%98%EC%8B%A0)
 
 # 프론트엔드
 
-### 기초
+### HTML/CSS/JS 기초
 
 - [HTML 기본](https://www.inflearn.com/course/html-%EA%B8%B0%EC%B4%88#)
 - [실전 HTML](https://www.inflearn.com/course/html-css-%EA%B0%95%EC%A2%8C#curriculum)
@@ -125,34 +156,34 @@
 - [Javascript 기본](https://programmers.co.kr/learn/courses/3)
 - [웹기술 기초](https://www.inflearn.com/course/%EC%9B%B9-%EA%B8%B0%EC%88%A0-%EA%B8%B0%EC%B4%88#)
 
-### 입문
+### React 입문
 
 - [웹게임을 만들며 배우는 React](https://www.inflearn.com/course/web-game-react#)
 
-### 중급
+### React 중급
 
 - [React Class  VS Function style 코딩](https://www.inflearn.com/course/react-class-function-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9#)
 - react 클론 프로젝트 참고
 
 # 딥러닝
 
-### 기초
+### 파이썬 기초
 
 - [파이썬 프로그래밍 기초 (1)](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDAe6AATw5UW6&subjectId=AWT4H-1q2m8DFAVT)
 - [파이썬 프로그래밍 기초 (2)](https://swexpertacademy.com/main/learn/course/subjectDetail.do?courseId=AVuPDAe6AATw5UW6&subjectId=AWT4IN2a2nIDFAVT)
 - [파이썬 레시피](https://www.inflearn.com/course/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%A0%88%EC%8B%9C%ED%94%BC-%ED%99%9C%EC%9A%A9#)
 
-### 입문
+### 기계학습 입문
 
 - [기계학습 설명](https://medium.com/@jongdae.lim/%EA%B8%B0%EA%B3%84-%ED%95%99%EC%8A%B5-machine-learning-%EC%9D%80-%EC%A6%90%EA%B2%81%EB%8B%A4-part-1-9a0297198ad8)
 - [모두를 위한 딥러닝](https://www.inflearn.com/course/%EA%B8%B0%EB%B3%B8%EC%A0%81%EC%9D%B8-%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%94%A5%EB%9F%AC%EB%8B%9D-%EA%B0%95%EC%A2%8C#curriculum)
 
 # 공통과정
 
-기초
+### 개발 공통 기초
 
 - [버전 관리 시스템 Git](https://www.inflearn.com/course/git-2#curriculum)
 
-중급
+### 개발 공통 중급
 
 - [정규표현식](https://programmers.co.kr/learn/courses/11)
