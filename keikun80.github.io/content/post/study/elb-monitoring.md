@@ -6,7 +6,7 @@ lastmod: "2021-05-21"
 description: "우리는 무엇을 봐야 하는가"
 categories:
   - "study"
-  - "life"
+  - "cloud" 
 tags:
   - "SRE"
   - "모니터링"
