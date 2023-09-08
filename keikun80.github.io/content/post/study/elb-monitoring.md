@@ -31,39 +31,27 @@ featured:
 ---
 # 01. 모니터링
 
+### 목적 
+
 우리는 무엇을 봐야 하는가. 
-
-목적
-
 우리는 무엇을 "위해서" 모니터링을 하는지 고려를 해봐야 합니다. 
-
 목적이 없다면 단지, CPU ,RAM, Network IO , DISK IO 등의 기계적인 수치를 보는 것을 모니터링이라고 믿을 수 있습니다.
-
 모니터링의 목적을 대부분의 사람에게 물어본다면 , 장애예방, 장애탐지, 다운타임 최소화, 의사결정, 자동화 등 이 목적이라고 할 것입니다. 
-
 모니터링의 목적에 따라 모니터링을 하는 대상과 방법이 달라져야 합니다. 
 
-대상
+### 대상
 
 모니터링의 목적에 따라서 하드웨어와 소프트웨어를 분리해서 모니터링 해야합니다.
-
 장애 탐지를 위해서는 장애 상황을 가정해서 어떤 지표를 봐야할지 고려를 해야 합니다. 
-
 저는 여기서 API의 정상적인 작동이 저의 목표 입니다. 그래서 API의 정상적인 작동을 모니터링을 하는 것이 목적입니다. 
-
 API가 서비스 되는 과정을 그려보겠습니다. AWS의 Best Paractice 에 약간의 상황을 더합니다. 
-
 ![api-gateway-sample.png](/static/monitoring/api-gateway-sample.png)
-
 외부에서 통신을 할 수 있도록 Elastic IP (Static IP)를 갖는 network load balancer (이하, NLB) 와 3개의 path 조건을 갖는 Application Load Balancer (이하, ALB)에 연결되어 있는 2대의 API gateway EC2 인스턴스를 모니터링 한다고 가정하겠습니다. 
 
-목적 : API의 정상적인 운영
+* 목적 : API의 정상적인 운영
+* 목표 : API의 장애 탐지 시간 줄이기
+* 시스템 구성 : NLB, ALB, API Gateway, ALB, API Container, AWS AuroraDB,  외부 서비스
 
-목표 : API의 장애 탐지 시간 줄이기
-
-시스템 구성 : 서비스를 위한 NLB, API 트래픽을 구분해주는 ALB, API를 맵핑해주는 API Gateway, API Serverice를 연결해주는 ALB, 
-
-API Service(ECS), API와 연결되는 AuroraDB,  외부서비스로 구성.
 
 장애를 탐지하고 싶고 그 탐지된 장애가 어디에서 발생한 것인지 알아야 할 때, 봐야 하는 곳과 내용이 서로 다릅니다. 
 
@@ -72,8 +60,8 @@ API Service(ECS), API와 연결되는 AuroraDB,  외부서비스로 구성.
 3. API gateway : 트래픽에 따른 하드웨어의 처리량을 모니터링 할 수 있습니다. 
 4. Api Load Balancer : 지정된 context-path에 따라 분기됩니다. 
 5. API service (ECS) : 컨테이너의 개수 , CPU,RAM등의 하드웨어 리소스 확인 
-6.  AuroraDB : API가 사용하는 Database 모니터링
-7.  External Link : 외부 연결 리소스에 대한 모니터링
+6. AuroraDB : API가 사용하는 Database 모니터링
+7. External Link : 외부 연결 리소스에 대한 모니터링
 
 ## AWS ELB 모니터링
 

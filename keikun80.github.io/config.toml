@@ -1,8 +1,8 @@
 baseURL = "/"
-title = "Developer in the ROOT"
+title = "Not yet human"
 languageCode = "en-us"
 paginate = 10
-theme = "binario"
+theme = "hugo-theme-relearn" 
 [Params]
   description = "Responsive card-based & code-light Hugo theme"
   columns = 2 
