@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS on Not yet human</title>
+    <link>//localhost:1313/tags/aws/index.html</link>
+    <description>Recent content in AWS on Not yet human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 03 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS가 처음이라면 </title>
+      <link>//localhost:1313/post/aws_learning_path/index.html</link>
+      <pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/aws_learning_path/index.html</guid>
+      <description>AWS 서비스 소개 AWS cloudfront 소개 : https://www.youtube.com/watch?v=6C9284C-zP4 33분 AWS 컨테이너 : https://www.aws.training/Details/eLearning?id=67719 15분 AWS ECR 소개: https://www.aws.training/Details/Video?id=67715 10분 AWS Fargate 소개 : https://www.aws.training/Details/Video?id=65781 10분 AWS IAM 소개 : https://www.aws.training/Details/Video?id=65265 10분 AWS Codecommit 소개 : https://www.aws.training/Details/Video?id=65774 15분 AWS Codepipeline 소개 : https://www.aws.training/Details/Video?id=65777 10분 AWS CloudFormation 소개 : https://www.aws.training/Details/Video?id=65775 10분 AWS Config 소개 : https://www.aws.training/Details/Video?id=65776 10분 AWS DynamoDB 소개 : https://www.aws.training/Details/Video?id=63940 5분 AWS Elasticache primer : https://www.aws.training/Details/eLearning?id=52983 20분 AWS CloudTrail 소개 : https://explore.</description>
+    </item>
+  </channel>
+</rss>

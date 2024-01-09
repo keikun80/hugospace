@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Not yet human</title>
+    <link>//localhost:1313/tags/index.html</link>
+    <description>Recent content in Tags on Not yet human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 18 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SRE</title>
+      <link>//localhost:1313/tags/sre/index.html</link>
+      <pubDate>Thu, 18 May 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/sre/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>모니터링</title>
+      <link>//localhost:1313/tags/%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81/index.html</link>
+      <pubDate>Thu, 18 May 2023 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>API</title>
+      <link>//localhost:1313/tags/api/index.html</link>
+      <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/api/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AWS</title>
+      <link>//localhost:1313/tags/aws/index.html</link>
+      <pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/aws/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>개발자</title>
+      <link>//localhost:1313/tags/%EA%B0%9C%EB%B0%9C%EC%9E%90/index.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/%EA%B0%9C%EB%B0%9C%EC%9E%90/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>생계령</title>
+      <link>//localhost:1313/tags/%EC%83%9D%EA%B3%84%EB%A0%B9/index.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/tags/%EC%83%9D%EA%B3%84%EB%A0%B9/index.html</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

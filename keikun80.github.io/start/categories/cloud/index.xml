@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloud on Not yet human</title>
+    <link>//localhost:1313/categories/cloud/index.html</link>
+    <description>Recent content in cloud on Not yet human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 18 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/categories/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OS 모니터링</title>
+      <link>//localhost:1313/monitoring/os-monitoring/index.html</link>
+      <pubDate>Tue, 08 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/monitoring/os-monitoring/index.html</guid>
+      <description>02. OS 모니터링 OS를 모니터링 합시다.
+흔히 OS의 상태를 모니터링하는것과 어플리케이션의 상태를 모니터링하는 것을 헛갈릴 수 있습니다.
+먼저 OS를 왜 모니터링 해야하는지 확인해 보겠습니다.
+OS는 하드웨어를 관리하고 소프트웨어를 실행하기 위한 플랫폼 입니다.
+OS를 통해서 우리는 하드웨어의 상태를 모니터링 할 수 있고, 소프트웨어 실행 정보를 모니터링 할 수 있습니다.
+OS를 모니터링 하는 방법을 찾아보면 적절한 툴을 찾아서 설치하고 화면을 구성하고 보는 것으로 되어 있습니다.
+하지만 우리의 화면은 제한적이고 최대한 많은 정보를 봐도 즉시 알기 어렵고, 무엇을 봐야하는지 모를 때가 많이 있습니다.</description>
+    </item>
+    <item>
+      <title>AWS가 처음이라면 </title>
+      <link>//localhost:1313/post/aws_learning_path/index.html</link>
+      <pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/aws_learning_path/index.html</guid>
+      <description>AWS 서비스 소개 AWS cloudfront 소개 : https://www.youtube.com/watch?v=6C9284C-zP4 33분 AWS 컨테이너 : https://www.aws.training/Details/eLearning?id=67719 15분 AWS ECR 소개: https://www.aws.training/Details/Video?id=67715 10분 AWS Fargate 소개 : https://www.aws.training/Details/Video?id=65781 10분 AWS IAM 소개 : https://www.aws.training/Details/Video?id=65265 10분 AWS Codecommit 소개 : https://www.aws.training/Details/Video?id=65774 15분 AWS Codepipeline 소개 : https://www.aws.training/Details/Video?id=65777 10분 AWS CloudFormation 소개 : https://www.aws.training/Details/Video?id=65775 10분 AWS Config 소개 : https://www.aws.training/Details/Video?id=65776 10분 AWS DynamoDB 소개 : https://www.aws.training/Details/Video?id=63940 5분 AWS Elasticache primer : https://www.aws.training/Details/eLearning?id=52983 20분 AWS CloudTrail 소개 : https://explore.</description>
+    </item>
+    <item>
+      <title>AWS ELB 모니터링</title>
+      <link>//localhost:1313/monitoring/elb_monitoring/index.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/monitoring/elb_monitoring/index.html</guid>
+      <description>01. 모니터링 목적 우리는 무엇을 봐야 하는가. 우리는 무엇을 &amp;ldquo;위해서&amp;rdquo; 모니터링을 하는지 고려를 해봐야 합니다. 목적이 없다면 단지, CPU ,RAM, Network IO , DISK IO 등의 기계적인 수치를 보는 것을 모니터링이라고 믿을 수 있습니다. 모니터링의 목적을 대부분의 사람에게 물어본다면 , 장애예방, 장애탐지, 다운타임 최소화, 의사결정, 자동화 등 이 목적이라고 할 것입니다. 모니터링의 목적에 따라 모니터링을 하는 대상과 방법이 달라져야 합니다.
+대상 모니터링의 목적에 따라서 하드웨어와 소프트웨어를 분리해서 모니터링 해야합니다. 장애 탐지를 위해서는 장애 상황을 가정해서 어떤 지표를 봐야할지 고려를 해야 합니다.</description>
+    </item>
+  </channel>
+</rss>

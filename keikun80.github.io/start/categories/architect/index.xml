@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>architect on Not yet human</title>
+    <link>//localhost:1313/categories/architect/index.html</link>
+    <description>Recent content in architect on Not yet human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/categories/architect/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MSA답게 쓰는 법</title>
+      <link>//localhost:1313/msa/index.html</link>
+      <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/msa/index.html</guid>
+      <description>왜 API를 쓰는가
+우리는 task를 할당 할 때, (task는 URL로 들어오는 request 일 수 도 있고, cli 에서 호출하는 명령어일 수도 있다.) 일단 request에 의해 task가 작동하고 response를 return 하게 된다.
+우리는 API를 호출 할 때, 한번에 하나의 task 만 요청할 수도 있고, 여러개의 task를 묶어서 요청할 수도 있다. 한번에 하나 요청하는 것을 single이라 하고, 여러개를 요청 하는 것을 bulk라 지칭하겠다. 이렇게 single과 bulk가 존재할 수 있는 이유는 for / while loop statement 덕분이며, 이 때문에 multi task/single request(bulk), 와 single task/single request가 생기게 된다.</description>
+    </item>
+  </channel>
+</rss>

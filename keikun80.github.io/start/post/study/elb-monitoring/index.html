@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.118.2">
+    <meta name="generator" content="Relearn 5.21.0+tip">
+    <meta name="description" content="우리는 무엇을 봐야 하는가">
+    <title>AWS ELB 모니터링 :: Not yet human</title>
+    <!-- https://github.com/filamentgroup/loadCSS/blob/master/README.md#how-to-use -->
+    <link href="/css/fontawesome-all.min.css?1704333503" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1704333503" rel="stylesheet"></noscript>
+    <link href="/css/nucleus.css?1704333503" rel="stylesheet">
+    <link href="/css/auto-complete.css?1704333503" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1704333503" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1704333503" rel="stylesheet">
+    <link href="/css/fonts.css?1704333503" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fonts.css?1704333503" rel="stylesheet"></noscript>
+    <link href="/css/theme.css?1704333503" rel="stylesheet">
+    <link href="/css/theme-auto.css?1704333503" rel="stylesheet" id="variant-style">
+    <link href="/css/variant.css?1704333503" rel="stylesheet">
+    <link href="/css/print.css?1704333503" rel="stylesheet" media="print">
+    <link href="/css/ie.css?1704333503" rel="stylesheet">
+    <script src="/js/url.js?1704333503"></script>
+    <script src="/js/variant.js?1704333503"></script>
+    <script>
+      // hack to let hugo tell us how to get to the root when using relativeURLs, it needs to be called *url= for it to do its magic:
+      // https://github.com/gohugoio/hugo/blob/145b3fcce35fbac25c7033c91c1b7ae6d1179da8/transform/urlreplacers/absurlreplacer.go#L72
+      var root_url="/";
+      var baseUri=root_url.replace(/\/$/, '');
+      // translations
+      window.T_Copy_to_clipboard = 'Copy to clipboard';
+      window.T_Copied_to_clipboard = 'Copied to clipboard!';
+      window.T_Copy_link_to_clipboard = 'Copy link to clipboard';
+      window.T_Link_copied_to_clipboard = 'Copied link to clipboard!';
+      window.T_No_results_found = 'No results found for \u0022{0}\u0022';
+      window.T_N_results_found = '{1} results found for \u0022{0}\u0022';
+      // some further base stuff
+      var baseUriFull='localhost:1313/';
+      window.variants && variants.init( [ 'auto' ] );
+    </script>
+  </head>
+  <body class="mobile-support html" data-url="/post/study/elb-monitoring/index.html">
+    <div id="body" class="default-animation">
+      <div id="body-overlay"></div>
+      <nav id="topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+              <button class="topbar-control" onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)">
+                <i class="fa-fw fas fa-bars"></i>
+              </button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+              <button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)">
+                <i class="fa-fw fas fa-list-alt"></i>
+              </button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"><nav class="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#목적">목적</a></li>
+        <li><a href="#대상">대상</a></li>
+      </ul>
+    </li>
+    <li><a href="#aws-elb-모니터링">AWS ELB 모니터링</a>
+      <ul>
+        <li><a href="#ec2-인스턴스의-모니터링">EC2 인스턴스의 모니터링</a></li>
+        <li><a href="#뒤쪽-또-다른-alb실제-api에-연결되어-있는-alb">뒤쪽 또 다른 ALB(실제 API에 연결되어 있는 ALB)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+              itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/index.html"><span itemprop="name">Not yet human</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+              itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/post/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li
+              itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">AWS ELB 모니터링</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+              <a class="topbar-control" href="/post/study/os-monitoring/index.html" title="OS 모니터링 (🡐)">
+                <i class="fa-fw fas fa-chevron-left"></i>
+              </a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+              <a class="topbar-control" href="/post/study/studypath/index.html" title="생계형 개발자 과정 (🡒)">
+                <i class="fa-fw fas fa-chevron-right"></i>
+              </a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+              <button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="More">
+                <i class="fa-fw fas fa-ellipsis-v"></i>
+              </button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="main-overlay"></div>
+      <main id="body-inner" class="highlightable default" tabindex="-1">
+        <div class="flex-block-wrapper">
+          <article class="default">
+            <header class="headline">
+<div class="tags">
+  <a class="tag-link" href="/tags/sre/index.html">SRE</a>
+  <a class="tag-link" href="/tags/%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81/index.html">모니터링</a>
+</div>
+            </header>
+<h1 id="aws-elb-모니터링">AWS ELB 모니터링</h1>
+
+<h1 id="01-모니터링">01. 모니터링</h1>
+<h3 id="목적">목적</h3>
+<p>우리는 무엇을 봐야 하는가.
+우리는 무엇을 &ldquo;위해서&rdquo; 모니터링을 하는지 고려를 해봐야 합니다.
+목적이 없다면 단지, CPU ,RAM, Network IO , DISK IO 등의 기계적인 수치를 보는 것을 모니터링이라고 믿을 수 있습니다.
+모니터링의 목적을 대부분의 사람에게 물어본다면 , 장애예방, 장애탐지, 다운타임 최소화, 의사결정, 자동화 등 이 목적이라고 할 것입니다.
+모니터링의 목적에 따라 모니터링을 하는 대상과 방법이 달라져야 합니다.</p>
+<h3 id="대상">대상</h3>
+<p>모니터링의 목적에 따라서 하드웨어와 소프트웨어를 분리해서 모니터링 해야합니다.
+장애 탐지를 위해서는 장애 상황을 가정해서 어떤 지표를 봐야할지 고려를 해야 합니다.
+저는 여기서 API의 정상적인 작동이 저의 목표 입니다. 그래서 API의 정상적인 작동을 모니터링을 하는 것이 목적입니다.
+API가 서비스 되는 과정을 그려보겠습니다. AWS의 Best Paractice 에 약간의 상황을 더합니다.
+<a href="#image-0576f9f09192d3c77b49e55d56ebe4cc" class="lightbox-link"><img src="/static/monitoring/api-gateway-sample.png" alt="api-gateway-sample.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-0576f9f09192d3c77b49e55d56ebe4cc"><img src="/static/monitoring/api-gateway-sample.png" alt="api-gateway-sample.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a>
+외부에서 통신을 할 수 있도록 Elastic IP (Static IP)를 갖는 network load balancer (이하, NLB) 와 3개의 path 조건을 갖는 Application Load Balancer (이하, ALB)에 연결되어 있는 2대의 API gateway EC2 인스턴스를 모니터링 한다고 가정하겠습니다.</p>
+<ul>
+<li>목적 : API의 정상적인 운영</li>
+<li>목표 : API의 장애 탐지 시간 줄이기</li>
+<li>시스템 구성 : NLB, ALB, API Gateway, ALB, API Container, AWS AuroraDB,  외부 서비스</li>
+</ul>
+<p>장애를 탐지하고 싶고 그 탐지된 장애가 어디에서 발생한 것인지 알아야 할 때, 봐야 하는 곳과 내용이 서로 다릅니다.</p>
+<ol>
+<li>Network Load Balancer  : 전체 트래픽의 In/Out을 확인 할 수 있습니다.</li>
+<li>Gateway Load Balancer : 외부에서 들어온 트래픽이 context-path에 따라서 분기됩니다.</li>
+<li>API gateway : 트래픽에 따른 하드웨어의 처리량을 모니터링 할 수 있습니다.</li>
+<li>Api Load Balancer : 지정된 context-path에 따라 분기됩니다.</li>
+<li>API service (ECS) : 컨테이너의 개수 , CPU,RAM등의 하드웨어 리소스 확인</li>
+<li>AuroraDB : API가 사용하는 Database 모니터링</li>
+<li>External Link : 외부 연결 리소스에 대한 모니터링</li>
+</ol>
+<h2 id="aws-elb-모니터링">AWS ELB 모니터링</h2>
+<p>먼저 Network Load Balancerd에서 확인 할 수 있는 메트릭 중에서 network IO를 확인 할 수 있습니다.</p>
+<ul>
+<li>
+<p>metric : NetworkELB &gt; processbytes</p>
+<p><a href="#image-a58ea5ad114e4c0b8f4ebb8feab73e22" class="lightbox-link"><img src="/static/monitoring/_2021-05-24_15.39.47.png" alt="2021-05-24_15.39.47.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-a58ea5ad114e4c0b8f4ebb8feab73e22"><img src="/static/monitoring/_2021-05-24_15.39.47.png" alt="2021-05-24_15.39.47.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>OPENAPI EDGE NLB의 processed Bytes</p>
+</li>
+</ul>
+<p>Metric으로 processbytes를 선택한 이유는 , edge NLB를 통해서 전송되는 모든 트래픽은 API service가 주고 받은 모든 데이터의 트래픽과 비슷해야 하고, 요청이 많아 질수록</p>
+<p>응답량도 많아지기 때문에 트래픽의 전체 추이를 볼 수 있습니다.</p>
+<p>그 다음으로 바로 연결되어 있는 ALB를 모니터링 할 수 있습니다.</p>
+<ul>
+<li>metric : ApplicationELB &gt; requestCount</li>
+</ul>
+<p><a href="#image-874c123efe80a3b46b704efb1c7c3fcf" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.40.02.png" alt="_2021-05-24_15.40.02.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-874c123efe80a3b46b704efb1c7c3fcf"><img src="/static/monitoring/2021-05-24_15.40.02.png" alt="_2021-05-24_15.40.02.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>OPENAPI ALB의 REQUEST 카운트</p>
+<p>위의 그래프로 보면 NLB의 처리량과 ALB의 처리량은 비례관계에 있음을 알 수 있습니다.</p>
+<p>그렇다면 API의 정상적인 작동을 확인하려면 우리는 API 가 정상의 경우에 2XX, 3XX, 4XX를 리턴할 것이고,  장애가 생긴 경우 5XX를 리턴할 것이라는 것을 알고 있습니다.</p>
+<p>(<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">HTTP 코드</a> 참조)</p>
+<p>그렇다면 하나의 Metric이 더 필요합니다. 위와 같이 처리건수와 함께 HTTP코드별로 건수를 확인하면 API의 정상작동을 알 수 있을것 같습니다.</p>
+<ul>
+<li>Metric : ApplicationELB &gt; HTTPCode_target_2xx , HTTPCode_target_4xx, HTTPCode_target_5xx</li>
+</ul>
+<p><a href="#image-93d8ca0a6e6ed7b5fe54414eb67b073d" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.43.23.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.43.23.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-93d8ca0a6e6ed7b5fe54414eb67b073d"><img src="/static/monitoring/2021-05-24_15.43.23.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.43.23.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>OPENAPI ALB의 코드별 응답 수</p>
+<p>그림 &ldquo;OPENAPI ALB의 REQUEST 카운트&quot;와 그림 &ldquo;OPENAPI ALB의 코드별 응답 수&rdquo; 를 비교해보면 대부분의 요청은 2xx 코드를 리턴하는 것을 알 수 있습니다.</p>
+<p>여기까지보면 API Gateway는 정상적으로 작동되는 것을 볼 수 있습니다.  혹은 target group 별로 Grouping 해서 확인 할 수 있습니다.</p>
+<p>이 때, ALB에서  target이 보낸 HTTPCode_Target_5xx가 의미하는 것은, ALB와 target은 연결이 되어 있는 상태이고, target의 return 값이 5xx 에러이므로,</p>
+<p>이 경우에 우리는 target의 상태를 살펴봐야 함을 알 수 있습니다.</p>
+<p>target은 정상적으로 작동 중이지만, target이 처리하는 내용이 이상이 있을수 있습니다.</p>
+<p>그리고 ALB에서도 오류가 생길 수 있기 때문에, ALB 자체의 응답코드도 모니터링 합니다.</p>
+<p>ALB에서 ELB_5xx에러가 증가를 한다는 것은 특히, 503에러의 경우는 target에 연결이 되지 않는 경우 혹은 ALB에서 지정하지 않은 PATH로 접근시에도발생하는 경우가 많이 있기 때문에 반드시 &ldquo;알람&rdquo; 을 설정해서 target에 대한 모니터링을 해야합니다.</p>
+<p>⇒ <a href="https://docs.aws.amazon.com/ko_kr/AmazonCloudWatch/latest/monitoring/ConsoleAlarms.html" target="_blank">정적임계값을 기반으로 cloudwatch 알람설정</a></p>
+<p>이 때, ALB는 가용 영역마다 존재하기 때문에, 가용영역의 문제점을 알기위해선 각 영역을 분리해야 합니다.</p>
+<p><a href="#image-5086ec36b54507ffca863df98480cce2" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.48.17.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.48.17.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-5086ec36b54507ffca863df98480cce2"><img src="/static/monitoring/2021-05-24_15.48.17.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.48.17.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>OPENAPI ALB자체의 5xx 에러</p>
+<p><a href="#image-319cd542fc51c220f144b3bdcac56166" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.48.30.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.48.30.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-319cd542fc51c220f144b3bdcac56166"><img src="/static/monitoring/2021-05-24_15.48.30.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.48.30.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>OPENAPI ALB자체의 5xx에러</p>
+<p>그리고 마지막으로 각 ELB 에 있는 Target group에서 Instance 의 healthy 상태를 모니터링 해야 합니다.</p>
+<p>아래의 그림은 ALB에 설정된 PATH별로 연결되어 있는  target group에 속한 인스턴스의 health check 상태를 모니터링 합니다.</p>
+<p><a href="#image-5632711e58d1f9a319f6aee3f4338fc3" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.27.49.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.27.49.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-5632711e58d1f9a319f6aee3f4338fc3"><img src="/static/monitoring/2021-05-24_15.27.49.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.27.49.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>인스턴스 헬스 카운트 예제</p>
+<p>이 때, 모니터링 Metric은  HealthyHost의 개수가 Auto Scale Group을 이용하는 경우는 min 미만으로 떨어질 경우 &ldquo;알람&rdquo;, desire 초과 인 경우도 &ldquo;알람&quot;을 설정하여,</p>
+<p>호스트의 수가 변동되는 것에 대한 &ldquo;알람&quot;을 받을 수 있어야 합니다.</p>
+<p>여기까지가  위에서 서술한 1번 NLB와 2번 ALB의 모니터링 내용입니다.</p>
+<p><a href="#image-f4311cc3e5cae50bfdde3b5cc1a61d9f" class="lightbox-link"><img src="/static/monitoring/2021-05-24_14.01.15.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_14.01.15.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-f4311cc3e5cae50bfdde3b5cc1a61d9f"><img src="/static/monitoring/2021-05-24_14.01.15.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_14.01.15.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>openapi edge NLB와 ALB의 모니터링 화면</p>
+<h3 id="ec2-인스턴스의-모니터링">EC2 인스턴스의 모니터링</h3>
+<p>EC2인스턴스 모니터링은 기존에 익숙한 하드웨어 모니터링 방식을 따릅니다.</p>
+<p>prometheus와 node_exporter를 이용해서 데이터를 콜렉션하여 사용 합니다.</p>
+<p>서버를 모니터링 하는 방법 및 지표는 너무 많은 자료가 있고, 각자 많은 경험이 있을테니, 성능 및 안정성에 영향을 미치는 꼭봐야 하는 부분만 짚어보도록 하겠습니다.</p>
+<ol>
+<li>
+<p>CPU</p>
+<ol>
+<li>참고로 CPU가 100%에 도달한 상태에서 작업이 진행되어도 서버가 죽지 않습니다. ⇒ 단지 너무 느려지면서, 제때 응답을 하지 못하는 겁니다.</li>
+<li>CPU에 대한 LOAD 테스트를 진행하기 전, 서버별로 주로 수행하는 작업이 현재 스펙에서 CPU를 최대 몇 %까지 쓰게 할건지 먼저 정해야 합니다. (임계값 설정)</li>
+<li>해당 서버의 목적에 맞는 어플리케이션을 구동하고 LOAD 테스트를 진행 합니다.</li>
+<li>서버의 목적에 따라, 50% , 70%, 85% 로 구분하여 하드웨어 스펙을 결정합니다.</li>
+</ol>
+</li>
+<li>
+<p>MEMORY</p>
+<ol>
+<li>
+<p>MEMORY는 100% 차지하면 시스템이 다운될 수 있습니다.</p>
+</li>
+<li>
+<p>OS영역은 약 2GB의 물리 메모리를 필요로 합니다.</p>
+</li>
+<li>
+<p>메모리의 여유 용량은 계산하기 까다롭습니다. (기준이 되는 REDHAT 리눅스도 5,6,7 버전에 따라서 약간씩 다릅니다.)</p>
+</li>
+<li>
+<p>JVM 설정을 기준으로 최대값에 물리 메모리의 1/2, 최소값에 1/4을 할당하길 권고 합니다 (<a href="https://docs.oracle.com/cd/E21764_01/web.1111/e13814/jvm_tuning.htm#PERFM159" target="_blank">oracle: Tunning JVM</a>)</p>
+</li>
+<li>
+<p>SWAP영역은 구동 되는 어플리케이션에 따라서 설정을 할 수도 있습니다. (Amazon Linux 는 기본적으로  swap이 없습니다.)</p>
+<p>⇒ <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/ch-swapspace" target="_blank">Redhat linux의 스왑 가이드</a></p>
+<p><a href="https://www.notion.so/77418354952a45238e785f6f1d518acc" target="_blank">메모리별 스왑 권장표</a></p>
+</li>
+</ol>
+</li>
+<li>
+<p>DISK IO / ACTIVITY</p>
+<ol>
+<li>로그를 저장하는 공간은 생각보다 빨리 없어집니다.</li>
+<li>로그는 반드시 logrotate 등으로 관리 해야 합니다.</li>
+<li>디스크에서 read /write 모두 늦어지면 시스템에 문제가 있습니다.</li>
+<li>read/write가 오랫 동안 멈춰있으면 시스템 죽을 수 있습니다.</li>
+<li>디스크의 남은 공간을 모니터링 하고 read/write  시간 지연도 모니터링 해야합니다.</li>
+</ol>
+</li>
+</ol>
+<p>마지막으로 위의 모든것을 볼 수 있다면 그 어떤 툴이라도 상관없습니다.</p>
+<p>하지만 저는, Grafana, prometheus, node_exporter 씁니다.</p>
+<h3 id="뒤쪽-또-다른-alb실제-api에-연결되어-있는-alb">뒤쪽 또 다른 ALB(실제 API에 연결되어 있는 ALB)</h3>
+<p>API Gateway는 다시 API service 를 제공하는 ECS와 ALB로 연결되어 있습니다.</p>
+<p>하지만 경로 및 설정이 Edge와는 다릅니다. 그리고 우리는 아직 우리의 목표인 빠른 장애 탐지를 위해서는 이곳의 ALB도 모니터링 해야 한다는 것을 알고 있습니다.</p>
+<p><a href="#image-40d4bed8659f9aeb859d6069090e84ba" class="lightbox-link"><img src="/static/monitoring/2021-05-24_14.55.45.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_14.55.45.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-40d4bed8659f9aeb859d6069090e84ba"><img src="/static/monitoring/2021-05-24_14.55.45.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_14.55.45.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>API ALB의 응답 코드별 카운트</p>
+<p>그래프의 모양으로 보아 그림 &ldquo;openapi ALB의 target group별 응답 코드 카운트&quot;에 있는 전체의 수치와 그림 &ldquo;API ELB의 응답 코드별 카운트&quot;의 수치가 거의 비슷한 느낌적 느낌이 들고 있습니다.</p>
+<p>이러한 그래프를 볼 때는 추세를 봐야하지, 숫자를 맞추려고 하면 안됩니다.</p>
+<p>초보 분들이 숫자가 맞지 않으면 답답해 하거나, 잘못되었다고 생각하는데, 시간의 범위에 따라서 집계를 하면 항상 오차는 발생하고 그 이유는 여러 가지가 있지만</p>
+<p>일단 컴퓨터의 시간은  ms(밀리세컨), ns(나노세컨)단위로 측정이 되고, 기록되는 시간이 서로 다른 관계로 정확한 수치는 맞지 않습니다.</p>
+<p>단 실험 계획을 수립해서 정확한 시간 동안 요청 / 응답 카운팅을 하거나, 외부 요소를 모두 배제한 상태에선 숫자를 맞출 수 있습니다.</p>
+<p>이곳에서도 ALB에 연결되어 있는 target group에 속한 인스턴스의 개수를 추적할 수 있도록 화면을 추가 합니다.</p>
+<p><a href="#image-2ad1519ae5cb670824d50b6e19843216" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.34.41.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.34.41.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-2ad1519ae5cb670824d50b6e19843216"><img src="/static/monitoring/2021-05-24_15.34.41.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.34.41.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>API ALB에 연결되어 있는 인스턴스의 개수 모니터링</p>
+<p>그리고, ALB 자체의 오류코드도 모니터링 합니다.</p>
+<p><a href="#image-ddd3ccef151fa6cad4ead0ec284290a2" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.41.00.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.41.00.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-ddd3ccef151fa6cad4ead0ec284290a2"><img src="/static/monitoring/2021-05-24_15.41.00.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.41.00.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>Internal API 자체의 5xx 에러</p>
+<p><a href="#image-444902f6da28ea61bd2bcc7a792845a9" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.41.11.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.41.11.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-444902f6da28ea61bd2bcc7a792845a9"><img src="/static/monitoring/2021-05-24_15.41.11.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.41.11.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+<p>Internal API 자체의 5xx 에러</p>
+<p>AWS의 네트워크 자원에 대한 모니터링 화면을 만들어 볼 수 있습니다.</p>
+<p><a href="#image-030d5631dce9530713e238bff95d9afc" class="lightbox-link"><img src="/static/monitoring/2021-05-24_15.53.44.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.53.44.png" class="figure-image noborder lightbox noshadow" style="height: auto; width: auto;" loading="lazy"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="image-030d5631dce9530713e238bff95d9afc"><img src="/static/monitoring/2021-05-24_15.53.44.png" alt="01%20%E1%84%86%E1%85%A9%E1%84%82%E1%85%B5%E1%84%90%E1%85%A5%E1%84%85%E1%85%B5%E1%86%BC%203ff2c72412804fb2a73bef77e6c09ffd/_2021-05-24_15.53.44.png" class="lightbox-image noborder lightbox noshadow" loading="lazy"></a></p>
+
+            <footer class="footline">
+              <i class='fas fa-list'></i>
+              <a class="tag-link" href="/categories/cloud/index.html">cloud</a>
+               | <a class="tag-link" href="/categories/study/index.html">study</a>
+
+            </footer>
+          </article>
+        </div>
+      </main>
+    </div>
+    <aside id="sidebar" class="default-animation">
+      <div id="header-topbar" class="default-animation"></div>
+      <div id="header-wrapper" class="default-animation">
+        <div id="header" class="default-animation">
+          <style>
+            #logo svg,
+            #logo svg * {
+              color: #282828;
+              color: var(--MENU-SECTIONS-BG-color);
+              fill: #282828 !important;
+              fill: var(--MENU-SECTIONS-BG-color) !important;
+              opacity: .945;
+            }
+            a#logo {
+              color: #282828;
+              color: var(--MENU-SECTIONS-BG-color);
+              font-family: 'Work Sans', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
+              font-size: 1.875rem;
+              font-weight: 300;
+              margin-top: -.8125rem;
+              max-width: 60%;
+              text-transform: uppercase;
+              width: 14.125rem;
+              white-space: nowrap;
+            }
+            a#logo:hover {
+              color: #282828;
+              color: var(--MENU-SECTIONS-BG-color);
+            }
+            #logo svg {
+              margin-bottom: -1.25rem;
+              margin-inline-start: -1.47rem;
+              width: 40.5%;
+            }
+            @media only all and (max-width: 60rem) {
+              a#logo {
+                font-size: 1.5625rem;
+                margin-top: -.1875rem;
+              }
+              #logo svg {
+                margin-bottom: -.75rem;
+                margin-inline-start: -1.47rem;
+              }
+            }
+            @media all and (-ms-high-contrast:none) {
+              /* IE11s understanding of positioning is weird at best */
+              a#logo {
+                margin-top: -3.625rem;
+              }
+              #logo svg {
+                margin-bottom: -3.875rem;
+                margin-left: -1.47rem;
+              }
+            }
+            @media only all and (-ms-high-contrast:none) and (max-width: 60rem) {
+              #logo svg {
+                margin-left: -1.47rem;
+              }
+            }
+          </style>
+          <a id="logo" href="/index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64.044 64.044">
+              <path d="M46.103 136.34c-.642-.394-1.222-2.242-1.98-2.358-.76-.117-1.353.506-1.618 1.519-.266 1.012-.446 4.188.173 5.538.213.435.482.787 1.03.845.547.057.967-.504 1.45-1.027.482-.523.437-.9 1.142-.612.705.289 1.051.4 1.586 1.229.535.828 1.085 4.043.868 5.598-.241 1.458-.531 2.8-.59 4.088.26.075.517.148.772.217 2.68.724 5.373 1.037 7.873.02.001-.028.01-.105.008-.11-.048-.165-.18-.41-.36-.698-.18-.29-.414-.645-.586-1.114a3.212 3.212 0 0 1-.125-1.735c.056-.21.153-.342.249-.475 1.237-1.193 2.932-1.373 4.244-1.384.557-.004 1.389.016 2.198.255.809.239 1.706.724 2.068 1.843.187.578.114 1.17-.043 1.623-.153.438-.369.783-.545 1.091-.178.31-.329.6-.401.821-.007.02-.003.071-.005.094 2.256 1.008 4.716.91 7.189.398.55-.114 1.11-.247 1.673-.377.344-1.085.678-2.145.852-3.208.124-.752.158-2.311-.078-3.538-.118-.613-.306-1.15-.52-1.489-.221-.349-.413-.501-.747-.538-.243-.027-.51.013-.796.098-.67.223-1.33.606-1.966.76l-.008.002-.109.032c-.556.152-1.233.158-1.797-.36-.556-.51-.89-1.367-1.117-2.596-.283-1.528-.075-3.279.89-4.518l.071-.09h.07c.65-.71 1.485-.802 2.16-.599.706.213 1.333.629 1.772.84.736.354 1.185.319 1.475.171.291-.148.5-.439.668-.955.332-1.017.301-2.819.022-4.106-.148-.684-.13-1.292-.13-1.883-1.558-.463-3.067-.982-4.574-1.208-1.128-.169-2.263-.173-3.298.164-.13.046-.256.095-.38.15-.373.164-.633.342-.805.52-.077.098-.081.105-.087.21-.004.068.031.289.13.571.1.282.256.634.467 1.03.279.524.448 1.063.431 1.618a2.12 2.12 0 0 1-.499 1.309 1.757 1.757 0 0 1-.62.51h-.002c-.515.291-1.107.404-1.723.464-.86.083-1.787.026-2.598-.097-.806-.123-1.47-.28-1.948-.555-.444-.256-.79-.547-1.037-.925a2.273 2.273 0 0 1-.356-1.301c.029-.837.403-1.437.625-1.897.111-.23.191-.433.236-.583.045-.15.044-.25.046-.24-.005-.029-.127-.355-1.015-.741-1.138-.495-2.322-.673-3.533-.668h-.015a9.711 9.711 0 0 0-.521.016h-.002c-1.163.057-2.35.308-3.541.569.383 1.531.79 2.753.818 4.502-.096 1.297.158 2.114-1.03 2.935-.85.588-1.508.729-2.15.335" style="fill:#282828;fill-opacity:1;stroke:none;stroke-width:1.03763;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-40.698 -95.175)"/>
+              <path d="M61.472 101.34v.002c-.3-.003-.603.01-.894.04-.544.055-1.39.165-1.778.306-1.238.364.13 2.344.41 2.913.28.569.285 2.03.14 2.134-.144.103-.375.261-.934.345-.56.084.03-.037-1.589.086-1.62.122-5.506.29-8.265.248-.022.26-.036.521-.097.808-.309 1.442-.63 3.163-.494 4.074.071.473.168.65.414.8.23.14.737.235 1.62-.004.834-.227 1.3-.442 1.887-.456.595-.016 1.555.472 1.965.717.411.245-.03-.008.002 0s.128.05.176.102c.049.053-.276-.523.104.199.379.721.72 3.256.002 4.68-.46.913-1.01 1.49-1.64 1.711-.63.22-1.229.067-1.734-.135-.881-.353-1.584-.7-2.205-.647-1.199 1.94-1.186 4.17-.6 6.602.097.397.212.814.327 1.23 2.68-.556 5.542-1.016 8.337.132 1.064.437 1.73 1.015 1.902 1.857.169.831-.193 1.508-.438 1.986-.122.238-.23.46-.307.642-.07.164-.096.28-.104.324.069.429.309.723.686.945.385.227.89.355 1.35.423.723.104 1.567.152 2.287.086.693-.064 1.032-.338 1.241-.544a2.447 2.447 0 0 0 .303-.437.175.175 0 0 0 .013-.035c-.004-.066-.037-.246-.195-.527-.46-.816-.87-1.595-.817-2.51.028-.476.218-.938.529-1.288.304-.343.698-.586 1.186-.79 1.442-.606 2.96-.609 4.372-.409 1.525.216 2.963.679 4.378 1.083.226-2.09.784-3.9.592-5.77-.058-.565-.287-1.333-.598-1.827-.32-.508-.59-.717-1.036-.642-.648.11-1.472.935-2.707 1.078-.791.092-1.494-.267-1.95-.86-.45-.583-.678-1.335-.78-2.101-.202-1.525.031-3.229.89-4.27.615-.747 1.45-.887 2.15-.74.687.145 1.307.492 1.857.745v-.002c.546.252 1.033.388 1.281.344a.547.547 0 0 0 .353-.188c.113-.124.242-.35.384-.75.604-1.712.206-3.68-.303-5.654-.667.145-1.336.293-2.018.413-1.341.236-2.73.392-4.136.273-.656-.055-1.695-.085-2.58-.476-.442-.195-.903-.514-1.157-1.093-.259-.591-.205-1.313.08-2.014.223-.64 1.082-2.178.692-2.585-.391-.407-1.651-.56-2.554-.571z" style="fill:#282828;fill-opacity:1;stroke:none;stroke-width:.992837;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-40.698 -95.175)"/>
+              <path d="M83.128 98.116c-.484 1.875-1.057 3.757-2.486 5.033-.638.57-1.13.666-1.483.548-.401-.134-.715-.506-1.058-.973-.338-.461-.655-.97-1.076-1.332-.192-.165-.404-.315-.683-.38-.279-.066-.599-.02-.9.102-.489.196-.89.58-1.28 1.047a6.1 6.1 0 0 0-.985 1.632c-.234.591-.356 1.174-.277 1.713.072.487.392.977.905 1.185.463.187.926.156 1.36.154.433 0 .843.01 1.242.147.55.189.79.736.822 1.368.034.66-.145 1.412-.393 1.988l-.008.021c-.74 1.705-1.946 2.893-3.004 4.349l-.664.915.979.099c.924.092 1.788.26 2.468.675.46.281 1.806 1.205 2.794 2.222.497.513.888 1.031 1.047 1.502.078.231.095.422.05.6a.93.93 0 0 1-.345.474c-.301.223-.606.395-.864.532l-.354.186c-.107.058-.189.087-.345.228a.637.637 0 0 1 .062-.045l-.064.041-.209.236-.103.343s.003.126.007.152c.003.017.003.007.004.015v.002c.016.195.061.307.133.476a4.1 4.1 0 0 0 .32.596 5.7 5.7 0 0 0 2.8 2.258c.284.108.908.321 1.548.36.33.02.59.015.912-.13h.002c.08-.037.228-.095.382-.281.153-.186.19-.355.212-.445l.019-.075.003-.078c.023-.585-.037-1.296.072-1.899.153-.657.435-.956 1.009-.909 2.771.239 4.74 1.955 6.693 3.83l.742.714.279-1.155c.55-2.29 1.093-4.464 2.928-5.977.692-.57 1.184-.642 1.527-.509.39.151.676.536.996.995.319.458.605.926 1.07 1.212.194.119.464.232.784.209.32-.024.638-.163.988-.384 1.022-.645 1.778-1.756 2.086-2.942.136-.522.102-.991-.046-1.301-.158-.334-.433-.553-.754-.707-.653-.314-1.468-.373-2.094-.486-.825-.15-1.22-.475-1.345-.878-.13-.417 0-.953.335-1.61.6-1.173 1.887-2.602 3.13-3.911l.498-.526-.449-.432c-1.545-1.49-3.163-3.01-5.252-3.715h-.002c-.473-.16-1.097-.413-1.73-.424h-.003c-.311-.004-.596.04-.883.24v.002c-.22.155-.483.537-.583.937l-.008.036-.006.038c-.116.773-.06 1.467-.217 1.995-.063.212-.198.418-.359.507-.202.111-.492.153-.976.072-.582-.097-1.978-.69-3.021-1.503-.523-.407-.934-.85-1.117-1.3a1.153 1.153 0 0 1-.083-.63c.03-.184.1-.477.308-.593.21-.116.941-.32 1.377-.642h.002c.192-.141.403-.367.518-.64.114-.275.127-.526.123-.774-.006-.142-.036-.192-.08-.3a8.417 8.417 0 0 0-3-3.027c-1.226-.725-2.585-1.135-3.927-1.539-.434-.12-.844-.111-1.02.466zm.912.947c1.186.364 2.357.718 3.345 1.303 1.035.612 1.864 1.488 2.507 2.528-.514.263-1.095.5-1.44.79-.345.29-.729.914-.815 1.434-.084.509 0 .968.155 1.347.301.74.85 1.276 1.44 1.735 1.18.92 2.554 1.545 3.47 1.698.604.1 1.186.088 1.739-.216.594-.327.935-.911 1.088-1.427.264-.884.193-1.664.262-2.17h.1c.3.006.926.206 1.417.371 1.646.554 3.044 1.773 4.431 3.089-1.102 1.174-2.222 2.423-2.888 3.73-.42.823-.73 1.789-.453 2.687.283.913 1.1 1.415 2.138 1.603.691.126 1.472.226 1.84.403.19.091.258.182.278.223.03.064.058.075-.023.387-.21.804-.761 1.598-1.413 2.01-.247.155-.365.183-.407.187-.042.003-.061.002-.172-.066-.144-.088-.455-.473-.772-.929-.317-.454-.714-1.07-1.452-1.356-.783-.304-1.776-.022-2.713.75-1.942 1.6-2.626 3.764-3.146 5.8-1.802-1.676-3.772-3.138-6.589-3.517h-.002c-.346-.095-1.013-.031-1.293.143-.735.501-1.005 1.132-1.168 2.007-.125.69-.082 1.216-.074 1.659-.055.006-.046.01-.104.006-.42-.026-1.035-.215-1.244-.295-.947-.361-1.774-1.006-2.314-1.857-.054-.085-.072-.132-.109-.2l.027-.016c.284-.15.656-.36 1.045-.648.44-.327.789-.798.93-1.35a2.4 2.4 0 0 0-.068-1.379c-.254-.751-.753-1.353-1.295-1.911-1.09-1.124-2.452-2.049-2.99-2.378-.609-.372-1.303-.44-1.981-.56.875-1.094 1.878-2.251 2.596-3.921.294-.823.543-1.907.513-2.658-.049-.97-.489-2.013-1.52-2.367-.579-.2-1.131-.204-1.58-.203-.45.002-.786-.006-.97-.08h-.002c-.264-.107-.236-.108-.268-.33-.025-.17.021-.553.183-.962a4.67 4.67 0 0 1 .725-1.192c.29-.348.617-.59.705-.626.142-.057.176-.05.22-.04.045.011.127.052.263.17.235.201.56.671.92 1.161.354.484.791 1.08 1.543 1.33.8.267 1.784-.052 2.671-.846 1.594-1.424 2.235-3.317 2.714-5.051zm11.705 7.023c-.02.014.042-.002.042 0l-.008.035c.05-.2-.028-.04-.034-.035zM79.472 122.45a.198.198 0 0 1 .005.023v.014c-.002-.01-.003-.03-.005-.037zm-.29.732-.006.01-.044.027c.016-.01.033-.024.05-.036z" style="color:#000;fill:#282828;stroke-width:1.02352;-inkscape-stroke:none" transform="translate(-40.698 -95.175)"/>
+              <path d="M76.694 128.845c-.85-.012-1.668.253-2.434.67-.01.592-.015 1.17.109 1.772.323 1.573.422 3.553-.07 5.147-.247.804-.684 1.535-1.347 1.891-.663.356-1.467.296-2.362-.159-.522-.266-1.059-.62-1.487-.757-.223-.072-.392-.096-.522-.069-.13.027-.232.094-.362.27-.53.719-.681 1.823-.497 2.876.177 1.012.418 1.438.543 1.56.143.137.26.154.604.055.548-.158 1.523-.857 2.573-.972l.02-.002.5.058c.686.081 1.247.562 1.622 1.19.372.62.591 1.37.73 2.136.279 1.532.25 3.16.083 4.232-.14.91-.394 1.72-.632 2.53 1.719-.385 3.485-.692 5.307-.36 1.174.214 2.749.574 3.762 1.977l.088.122.046.159c.162.551.16 1.114.024 1.578-.13.45-.348.772-.533 1.023-.181.246-.336.444-.437.606-.102.16-.141.275-.145.336-.01.17 0 .197.07.315.057.1.186.242.39.366.408.246 1.106.414 1.843.45a7.842 7.842 0 0 0 2.174-.21 4.28 4.28 0 0 0 .822-.296c.218-.106.385-.242.377-.233l.029-.031c.025-.035.05-.072.05-.068 0-.004 0-.017-.003-.05a2.733 2.733 0 0 0-.21-.579c-.26-.548-.839-1.333-.822-2.46.01-.657.27-1.21.598-1.576.32-.357.696-.575 1.074-.736.759-.323 1.57-.418 2.054-.458 1.653-.136 3.252.296 4.755.765.457.142.905.29 1.352.434.325-2.258.902-4.247.598-6.217-.071-.46-.25-1.169-.486-1.684-.238-.518-.495-.762-.675-.779-.351-.032-.716.14-1.174.418-.457.277-1.005.665-1.695.742-.745.082-1.406-.291-1.84-.908-.428-.608-.653-1.394-.754-2.196-.203-1.596.016-3.377.794-4.493.568-.813 1.358-.984 2.024-.835.65.146 1.243.51 1.769.779.524.267.99.413 1.237.365a.527.527 0 0 0 .346-.2c.11-.132.235-.373.37-.798.612-1.918.27-3.894-.246-6.054-2.815-.851-5.49-1.534-8.089-.267a.727.727 0 0 0-.223.148c-.024.028-.018.021-.026.056.001-.003-.01.178.07.44.162.522.611 1.29.911 1.978l.004.009.029.063.024.084V133c.162.635.016 1.297-.274 1.727-.272.404-.618.636-.952.81-.675.353-1.399.484-1.724.533a5.888 5.888 0 0 1-3.973-.795c-.512-.311-.876-.594-1.133-1.02-.282-.466-.318-1.084-.172-1.557.252-.814.715-1.266.971-1.89a.663.663 0 0 0 .047-.14c.001-.013 0-.006-.007-.037a.761.761 0 0 0-.184-.268c-.264-.267-.865-.595-1.54-.826-1.356-.462-3.07-.659-3.583-.686-.062-.002-.121-.006-.178-.006z" style="fill:#282828;fill-opacity:1;stroke:none;stroke-width:.991342;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-40.698 -95.175)"/>
+            </svg>
+            Relearn
+          </a>
+        </div>
+        <div class="searchbox default-animation">
+          <i class="fas fa-search" title="Search (CTRL+ALT+f)"></i>
+          <label class="a11y-only" for="search-by">Search</label>
+          <input data-search-input id="search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+          <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-times" title="Clear search"></i></button>
+        </div>
+        <script>
+          var contentLangs=['en'];
+        </script>
+        <script src="/js/auto-complete.js?1704333503" defer></script>
+        <script src="/js/lunr/lunr.min.js?1704333503" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1704333503" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1704333503" defer></script>
+        <script src="/js/lunr/lunr.en.min.js?1704333503" defer></script>
+        <script src="/js/search.js?1704333503" defer></script>
+      </div>
+      <div id="homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="content-wrapper" class="highlightable">
+        <div id="topics">
+          <ul class="enlarge morespace">
+          <li data-nav-id="/post/index.html" class="parent "><a class="padding" href="/post/index.html">Posts</a><ul id="subsections-ed2e83a7348f10833eb2cdf6b3dd9d69" class="morespace">
+          <li data-nav-id="/post/study/how_to_use_msa/index.html" class=""><a class="padding" href="/post/study/how_to_use_msa/index.html">MSA답게 쓰는 법</a></li>
+          <li data-nav-id="/post/study/os-monitoring/index.html" class=""><a class="padding" href="/post/study/os-monitoring/index.html">OS 모니터링</a></li>
+          <li data-nav-id="/post/study/elb-monitoring/index.html" class="active"><a class="padding" href="/post/study/elb-monitoring/index.html">AWS ELB 모니터링</a></li>
+          <li data-nav-id="/post/study/studypath/index.html" class=""><a class="padding" href="/post/study/studypath/index.html">생계형 개발자 과정</a></li></ul></li>
+          <li data-nav-id="/awsath/index.html" class=""><a class="padding" href="/awsath/index.html">AWS가 처음이라면 </a></li>
+          </ul>
+        </div>
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fas fa-language fa-fw"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="select-language">Language</label>
+                    <select id="select-language" onchange="location = baseUri + this.value;">
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fas fa-paint-brush fa-fw"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="select-variant">Theme</label>
+                    <select id="select-variant" onchange="window.variants && variants.changeVariant( this.value );">
+                      <option id="auto" value="auto" selected>Auto</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.variants && variants.markSelectedVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fas fa-history fa-fw"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Clear History</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="footer" class="footerFooter showFooter">
+	    <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1704333503" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1704333503" defer></script>
+    <script src="/js/theme.js?1704333503" defer></script>
+  </body>
+</html>

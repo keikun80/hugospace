@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Not yet human">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//localhost:1313//">
+    <meta property="twitter:image" content="//localhost:1313//" />
+    
+
+    
+    <meta name="title" content="AWS가 처음이라면 " />
+    <meta property="og:title" content="AWS가 처음이라면 " />
+    <meta property="twitter:title" content="AWS가 처음이라면 " />
+    
+
+    
+    <meta name="description" content="AWS를 처음 접하지만 일을 해야할 때 먼저 봐야하는 무료 교육 과정">
+    <meta property="og:description" content="AWS를 처음 접하지만 일을 해야할 때 먼저 봐야하는 무료 교육 과정" />
+    <meta property="twitter:description" content="AWS를 처음 접하지만 일을 해야할 때 먼저 봐야하는 무료 교육 과정" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>AWS가 처음이라면  | </title>
+
+    <link rel="canonical" href="/awsath/">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hugo-theme-cleanwhite.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link rel="stylesheet" href="/css/font-awesome.all.min.css">
+
+    
+    
+
+    
+    <script src="/js/jquery.min.js"></script>
+
+    
+    <script src="/js/bootstrap.min.js"></script>
+
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    <script src="/js/lazysizes.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Not yet human</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">All Posts</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/application/">application</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/architect/">architect</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/cloud/">cloud</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/infrastructure/">infrastructure</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/life/">life</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/study/">study</a>
+                        </li>
+                        
+                    
+                    
+		    
+		            <li>
+                        <a href="/search"><i class="fa fa-search"></i></a>
+		           </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+
+<header class="intro-header" >
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/aws" title="AWS">
+                            AWS
+                        </a>
+                        
+                    </div>
+                    <h1>AWS가 처음이라면 </h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        
+                            Posted by 
+                            
+                                    Not yet human
+                             
+                            on 
+                            Thursday, June 3, 2021
+                            
+                            
+                            
+                            
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h4 id="aws-서비스-소개">AWS 서비스 소개</h4>
+<ul>
+<li>AWS cloudfront 소개 : <a href="https://www.youtube.com/watch?v=6C9284C-zP4">https://www.youtube.com/watch?v=6C9284C-zP4</a>  33분</li>
+<li>AWS 컨테이너 : <a href="https://www.aws.training/Details/eLearning?id=67719">https://www.aws.training/Details/eLearning?id=67719</a> 15분</li>
+<li>AWS ECR 소개: <a href="https://www.aws.training/Details/Video?id=67715">https://www.aws.training/Details/Video?id=67715</a> 10분</li>
+<li>AWS Fargate 소개 : <a href="https://www.aws.training/Details/Video?id=65781">https://www.aws.training/Details/Video?id=65781</a> 10분</li>
+<li>AWS IAM 소개 : <a href="https://www.aws.training/Details/Video?id=65265">https://www.aws.training/Details/Video?id=65265</a> 10분</li>
+<li>AWS Codecommit 소개 : <a href="https://www.aws.training/Details/Video?id=65774">https://www.aws.training/Details/Video?id=65774</a> 15분</li>
+<li>AWS Codepipeline 소개 : <a href="https://www.aws.training/Details/Video?id=65777">https://www.aws.training/Details/Video?id=65777</a> 10분</li>
+<li>AWS CloudFormation 소개 : <a href="https://www.aws.training/Details/Video?id=65775">https://www.aws.training/Details/Video?id=65775</a> 10분</li>
+<li>AWS Config 소개 : <a href="https://www.aws.training/Details/Video?id=65776">https://www.aws.training/Details/Video?id=65776</a> 10분</li>
+<li>AWS DynamoDB 소개 : <a href="https://www.aws.training/Details/Video?id=63940">https://www.aws.training/Details/Video?id=63940</a> 5분</li>
+<li>AWS Elasticache primer : <a href="https://www.aws.training/Details/eLearning?id=52983">https://www.aws.training/Details/eLearning?id=52983</a> 20분</li>
+<li>AWS CloudTrail 소개 : <a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/5131/introduction-to-aws-cloudtrail-korean">https://explore.skillbuilder.aws/learn/course/internal/view/elearning/5131/introduction-to-aws-cloudtrail-korean</a>  10분</li>
+</ul>
+<h4 id="aws-주요-서비스를-전반적으로-이해-하기">AWS 주요 서비스를 전반적으로 이해 하기</h4>
+<ul>
+<li>AWS Cloud Practitioner Essentials : <a href="https://www.aws.training/Details/eLearning?id=68459">https://www.aws.training/Details/eLearning?id=68459</a> 6시간
+AWS Skill Builder 에 여러 과정이 생기면서 아래의 목록보다 더 괜찮은 교육이 많아 졌습니다. 각 과정의 첫 페이지는 영어로 되어 있지만 들어가보면 한국어를 지원하기 때문에
+학습에 어려움은 없을 것 으로 생각 됩니다.</li>
+<li>솔루션 아키텍트 과정(62시간) : <a href="https://explore.skillbuilder.aws/learn/learning_plan/view/1044/solutions-architect-learning-plan">https://explore.skillbuilder.aws/learn/learning_plan/view/1044/solutions-architect-learning-plan</a></li>
+<li>솔루션 아키텍트 시험준비(4시간) : <a href="https://www.aws.training/Details/eLearning?id=41988">https://www.aws.training/Details/eLearning?id=41988</a></li>
+<li>네트워크 과정(28시간) : <a href="https://explore.skillbuilder.aws/learn/learning_plan/view/89/networking-learning-plan">https://explore.skillbuilder.aws/learn/learning_plan/view/89/networking-learning-plan</a></li>
+</ul>
+<h4 id="aws-보안">AWS 보안</h4>
+<ul>
+<li>Getting Start with AWS Security ,Identity, compliance : <a href="https://www.aws.training/Details/eLearning?id=65258">https://www.aws.training/Details/eLearning?id=65258</a> 3시간</li>
+<li>AWS Security Fundamentals(음성 : 영어, 슬라이드 : 한글) :https://www.aws.training/Details/Curriculum?id=11048 4시간</li>
+<li>AWS S3 security : <a href="https://www.aws.training/Details/eLearning?id=68311">https://www.aws.training/Details/eLearning?id=68311</a> 60분</li>
+</ul>
+<h4 id="aws-보안-심화-과정">AWS 보안 심화 과정</h4>
+<ul>
+<li><a href="https://explore.skillbuilder.aws/learn/course/internal/view/elearning/97/exam-readiness-aws-certified-security-specialty">https://explore.skillbuilder.aws/learn/course/internal/view/elearning/97/exam-readiness-aws-certified-security-specialty</a></li>
+<li><a href="https://www.aws.training/learningobject/wbc?id=49720">https://www.aws.training/learningobject/wbc?id=49720</a></li>
+<li><a href="https://www.aws.training/Details/eLearning?id=34259">https://www.aws.training/Details/eLearning?id=34259</a></li>
+<li><a href="https://www.aws.training/training/schedule?courseId=10021">https://www.aws.training/training/schedule?courseId=10021</a></li>
+</ul>
+<h4 id="컨테이너-심층-분석">컨테이너 심층 분석</h4>
+<ul>
+<li>컨테이너 심층 분석 : <a href="https://aws.amazon.com/ko/getting-started/deep-dive-containers/?e=gs2020&amp;p=gsrc">https://aws.amazon.com/ko/getting-started/deep-dive-containers/?e=gs2020&amp;p=gsrc</a></li>
+</ul>
+<h4 id="aws-서버리스-개발">AWS 서버리스 개발</h4>
+<ul>
+<li>서버리스 심층 분석: <a href="https://aws.amazon.com/ko/getting-started/deep-dive-serverless/?e=gs2020&amp;p=gsrc">https://aws.amazon.com/ko/getting-started/deep-dive-serverless/?e=gs2020&amp;p=gsrc</a></li>
+<li>Serverless development 소개 : <a href="https://www.aws.training/Details/eLearning?id=64901">https://www.aws.training/Details/eLearning?id=64901</a> 25분</li>
+<li>AWS DynamoDB Primer : <a href="https://www.aws.training/Details/eLearning?id=69817">https://www.aws.training/Details/eLearning?id=69817</a> 20분</li>
+<li>AWS DynamoDB for serverless : <a href="https://www.aws.training/Details/eLearning?id=68934">https://www.aws.training/Details/eLearning?id=68934</a> 2시간</li>
+<li>AWS Lambda Foundation : <a href="https://www.aws.training/Details/eLearning?id=70954">https://www.aws.training/Details/eLearning?id=70954</a> 60분</li>
+</ul>
+<h4 id="실습">실습</h4>
+<ul>
+<li><a href="https://aws.amazon.com/ko/getting-started/hands-on/run-serverless-code/">https://aws.amazon.com/ko/getting-started/hands-on/run-serverless-code/</a></li>
+<li><a href="https://aws.amazon.com/ko/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/">https://aws.amazon.com/ko/getting-started/hands-on/build-serverless-web-app-lambda-apigateway-s3-dynamodb-cognito/</a></li>
+<li><a href="https://aws.amazon.com/ko/getting-started/hands-on/handle-serverless-application-errors-step-functions-lambda/">https://aws.amazon.com/ko/getting-started/hands-on/handle-serverless-application-errors-step-functions-lambda/</a></li>
+</ul>
+
+
+                
+
+                
+
+                
+
+
+
+            </div>
+
+            
+            
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">                  
+                    
+                    
+                    
+                    
+                    
+
+		            
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+           
+             </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Not yet human 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function loadAsync(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        loadAsync("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        
+        
+        
+        
+            _containerSelector = 'div.post-container'
+        
+
+        
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        
+        $(selector).html('')
+
+        
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    
+
+
+    loadAsync("\/js\/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+
+</body>
+</html>

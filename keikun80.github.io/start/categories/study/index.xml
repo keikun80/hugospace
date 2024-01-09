@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>study on Not yet human</title>
+    <link>//localhost:1313/categories/study/index.html</link>
+    <description>Recent content in study on Not yet human</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Thu, 18 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="//localhost:1313/categories/study/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MSA답게 쓰는 법</title>
+      <link>//localhost:1313/msa/index.html</link>
+      <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/msa/index.html</guid>
+      <description>왜 API를 쓰는가
+우리는 task를 할당 할 때, (task는 URL로 들어오는 request 일 수 도 있고, cli 에서 호출하는 명령어일 수도 있다.) 일단 request에 의해 task가 작동하고 response를 return 하게 된다.
+우리는 API를 호출 할 때, 한번에 하나의 task 만 요청할 수도 있고, 여러개의 task를 묶어서 요청할 수도 있다. 한번에 하나 요청하는 것을 single이라 하고, 여러개를 요청 하는 것을 bulk라 지칭하겠다. 이렇게 single과 bulk가 존재할 수 있는 이유는 for / while loop statement 덕분이며, 이 때문에 multi task/single request(bulk), 와 single task/single request가 생기게 된다.</description>
+    </item>
+    <item>
+      <title>OS 모니터링</title>
+      <link>//localhost:1313/monitoring/os-monitoring/index.html</link>
+      <pubDate>Tue, 08 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/monitoring/os-monitoring/index.html</guid>
+      <description>02. OS 모니터링 OS를 모니터링 합시다.
+흔히 OS의 상태를 모니터링하는것과 어플리케이션의 상태를 모니터링하는 것을 헛갈릴 수 있습니다.
+먼저 OS를 왜 모니터링 해야하는지 확인해 보겠습니다.
+OS는 하드웨어를 관리하고 소프트웨어를 실행하기 위한 플랫폼 입니다.
+OS를 통해서 우리는 하드웨어의 상태를 모니터링 할 수 있고, 소프트웨어 실행 정보를 모니터링 할 수 있습니다.
+OS를 모니터링 하는 방법을 찾아보면 적절한 툴을 찾아서 설치하고 화면을 구성하고 보는 것으로 되어 있습니다.
+하지만 우리의 화면은 제한적이고 최대한 많은 정보를 봐도 즉시 알기 어렵고, 무엇을 봐야하는지 모를 때가 많이 있습니다.</description>
+    </item>
+    <item>
+      <title>AWS가 처음이라면 </title>
+      <link>//localhost:1313/post/aws_learning_path/index.html</link>
+      <pubDate>Thu, 03 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/aws_learning_path/index.html</guid>
+      <description>AWS 서비스 소개 AWS cloudfront 소개 : https://www.youtube.com/watch?v=6C9284C-zP4 33분 AWS 컨테이너 : https://www.aws.training/Details/eLearning?id=67719 15분 AWS ECR 소개: https://www.aws.training/Details/Video?id=67715 10분 AWS Fargate 소개 : https://www.aws.training/Details/Video?id=65781 10분 AWS IAM 소개 : https://www.aws.training/Details/Video?id=65265 10분 AWS Codecommit 소개 : https://www.aws.training/Details/Video?id=65774 15분 AWS Codepipeline 소개 : https://www.aws.training/Details/Video?id=65777 10분 AWS CloudFormation 소개 : https://www.aws.training/Details/Video?id=65775 10분 AWS Config 소개 : https://www.aws.training/Details/Video?id=65776 10분 AWS DynamoDB 소개 : https://www.aws.training/Details/Video?id=63940 5분 AWS Elasticache primer : https://www.aws.training/Details/eLearning?id=52983 20분 AWS CloudTrail 소개 : https://explore.</description>
+    </item>
+    <item>
+      <title>AWS ELB 모니터링</title>
+      <link>//localhost:1313/monitoring/elb_monitoring/index.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/monitoring/elb_monitoring/index.html</guid>
+      <description>01. 모니터링 목적 우리는 무엇을 봐야 하는가. 우리는 무엇을 &amp;ldquo;위해서&amp;rdquo; 모니터링을 하는지 고려를 해봐야 합니다. 목적이 없다면 단지, CPU ,RAM, Network IO , DISK IO 등의 기계적인 수치를 보는 것을 모니터링이라고 믿을 수 있습니다. 모니터링의 목적을 대부분의 사람에게 물어본다면 , 장애예방, 장애탐지, 다운타임 최소화, 의사결정, 자동화 등 이 목적이라고 할 것입니다. 모니터링의 목적에 따라 모니터링을 하는 대상과 방법이 달라져야 합니다.
+대상 모니터링의 목적에 따라서 하드웨어와 소프트웨어를 분리해서 모니터링 해야합니다. 장애 탐지를 위해서는 장애 상황을 가정해서 어떤 지표를 봐야할지 고려를 해야 합니다.</description>
+    </item>
+    <item>
+      <title>생계형 개발자 과정</title>
+      <link>//localhost:1313/post/study/studypath/index.html</link>
+      <pubDate>Fri, 21 May 2021 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/post/study/studypath/index.html</guid>
+      <description>생계형 개발자 커리큘럼 생계형 개발자를 하기로 했다면
+생계형 개발자, SI에서 살아남기 개정판 먼저 읽어보시고, 할만하다 하면 시작하면 됩니다.
+먼저 개발자에도 등급이 있고, 그 등급에 따라 갈 수 있는 회사가 갈리고 등급의 기준이 컴퓨터적인 사고방식을
+학습을 한 상태인지, 알고리즘을 이용한 문제해결 능력에 따라서 등급과 분야가 나뉜다는걸 이야기 하고 싶습니다.
+먼저 이글이 맞는 분들은
+개발은 쉬운가 어려운가? 궁금하신 분 내가 개발을 할 수 있을까? 라는 의문을 가진 분 개발자를 할 수 있을까? 라는 의문을 가진 분 이런 질문을 가진 분들에게 공부의 방향을 잡아주고자 유용하다고 생각되는 강좌들을 모아봤습니다.</description>
+    </item>
+    <item>
+      <title>개발에 필요한 기초지식</title>
+      <link>//localhost:1313/build-up/index.html</link>
+      <pubDate>Wed, 23 Dec 2020 12:42:47 +0000</pubDate>
+      <guid>//localhost:1313/build-up/index.html</guid>
+      <description>개발을 하는데 있어서 코드를 잘짜는것은 기본이고 서비스 전반을 이루고 있는 내용에 대해서 알고 있으면 더욱 좋습니다. OS기초와 L3/L4와 인터넷을 이루는 기반인 DNS등의 이해가 더해지면 상식 수준이 올라가면서 도움이 됩니다. 모두 인터넷에 찾아보면 나오는 강의들이고 유튜브, 인프런, udemy등에 있는 무료 강의 중심 입니다.
+OS (인프런)생활코딩 리눅스 강좌 (생활코딩)생활코딩 리눅스 강좌 Infrastructure Network TCP/IP Network Class L3 라우터와 L3스위치 L4 L4 Swith 작동원리 Proxy란? Internet DNS 설명(영문) WAS(Web Application Server) Tomcat StringBoot WEB Server Apache Nginx IIS </description>
+    </item>
+  </channel>
+</rss>

@@ -1,8 +1,8 @@
 baseURL = "/"
 title = "Not yet human"
-languageCode = "en-us"
+languageCode = "ko-kr"
 paginate = 10
-theme = "hugo-theme-relearn" 
+theme = "hugo-theme-relearn"
 [Params]
   description = "Responsive card-based & code-light Hugo theme"
   columns = 2 
